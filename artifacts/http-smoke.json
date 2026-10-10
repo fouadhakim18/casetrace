@@ -1,0 +1,9 @@
+{
+  "/": 200,
+  "/app.js": 200,
+  "/style.css": 200,
+  "/api/config": 200,
+  "/api/cases": 200,
+  "/api/evaluation": 200,
+  "/openapi.json": 200
+}

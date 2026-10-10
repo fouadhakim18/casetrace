@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-09",
+  "python_tests": {
+    "passed": 22,
+    "failed": 0,
+    "artifact": "tests.xml"
+  },
+  "real_http_smoke": {
+    "passed": true,
+    "artifact": "http-smoke.json",
+    "scope": "Actual Uvicorn listener and HTTP client in the same execution context; seven routes returned 200."
+  },
+  "live_llm": {
+    "provider": "Gemini",
+    "model": "gemini-2.5-flash",
+    "artifact": "evaluation.json",
+    "limitation": "Free-provider HTTP 429 interrupted later experiments. Saved successes and failures are distinguished."
+  },
+  "browser_visual_check": {
+    "completed": false,
+    "reason": "Browser visual validation was not completed: localhost requests timed out across execution contexts, and local file URLs were unavailable in the validation environment."
+  },
+  "docker_executed": false,
+  "remote_ci_executed": false,
+  "ollama_executed": false,
+  "semantic_embedding_option_executed": false,
+  "publicly_deployed": false
+}

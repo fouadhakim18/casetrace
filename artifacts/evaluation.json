@@ -1,0 +1,3670 @@
+{
+  "runs": [
+    {
+      "case": "01_consistent",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:13:21.902067+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "60e3846775b4dfa9a151c3367b9a1088c5071fbbdcf336f6c41e8d878cc447c2",
+        "02_incident_report.pdf": "e58143cda1f101fb09ef0dd660209d6685f5d823a3faf68464955acdb1ca9681",
+        "03_repair_estimate.pdf": "167029ad9a316564bb57326b89b3adb2fbfba490b4978347e61fbc02cf8d7f0a"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 0 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [],
+          "unanswered_questions": []
+        },
+        "citation_checks": [],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [],
+        "predicted_kinds": [],
+        "true_positive_categories": 0,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 0,
+        "total_findings": 0
+      },
+      "elapsed_seconds": 0.0
+    },
+    {
+      "case": "01_consistent",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:13:21.909582+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "60e3846775b4dfa9a151c3367b9a1088c5071fbbdcf336f6c41e8d878cc447c2",
+        "02_incident_report.pdf": "e58143cda1f101fb09ef0dd660209d6685f5d823a3faf68464955acdb1ca9681",
+        "03_repair_estimate.pdf": "167029ad9a316564bb57326b89b3adb2fbfba490b4978347e61fbc02cf8d7f0a"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "efb9b0e929a5dc74dc27065d",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1629
+              },
+              {
+                "document_id": "82dfd9803588abb33c18d6eb",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1434
+              },
+              {
+                "document_id": "08c519ba60e9062460389b47",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0499
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1288,
+            "output_tokens": 618,
+            "total_tokens": 1906,
+            "latency_seconds": 3.799
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The incident date is consistently reported across the declaration and incident report. A repair estimate is provided, which was listed as required evidence. The arithmetic for the repair estimate is correct. No inconsistencies were found.",
+              "findings": [
+                {
+                  "title": "Consistent Incident Date",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The incident date is consistently reported as 2026-03-12 in both the claim declaration and the incident report.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "08c519ba60e9062460389b47",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    }
+                  ],
+                  "next_step": "No further action required regarding the incident date."
+                },
+                {
+                  "title": "Required Evidence Provided",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' with invoice number SYN-INV-001 has been provided.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Document type: repair estimate\nInvoice number: SYN-INV-001"
+                    }
+                  ],
+                  "next_step": "No further action required regarding the provision of this evidence."
+                },
+                {
+                  "title": "Repair Estimate Arithmetic Correct",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The line items total and invoice total for the repair estimate are correctly calculated based on the provided labour and materials costs. Labour (450.00 EUR) + Materials (600.00 EUR) = 1050.00 EUR, which matches the Line items total and Invoice total.",
+                  "citations": [
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                    }
+                  ],
+                  "next_step": "No further action required regarding the arithmetic of the repair estimate."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        }
+      ],
+      "expected_kinds": [],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The incident date is consistently reported across the declaration and incident report. A repair estimate is provided, which was listed as required evidence. The arithmetic for the repair estimate is correct. No inconsistencies were found.",
+          "findings": [
+            {
+              "title": "Consistent Incident Date",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The incident date is consistently reported as 2026-03-12 in both the claim declaration and the incident report.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "08c519ba60e9062460389b47",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                }
+              ],
+              "next_step": "No further action required regarding the incident date."
+            },
+            {
+              "title": "Required Evidence Provided",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' with invoice number SYN-INV-001 has been provided.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Document type: repair estimate\nInvoice number: SYN-INV-001"
+                }
+              ],
+              "next_step": "No further action required regarding the provision of this evidence."
+            },
+            {
+              "title": "Repair Estimate Arithmetic Correct",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The line items total and invoice total for the repair estimate are correctly calculated based on the provided labour and materials costs. Labour (450.00 EUR) + Materials (600.00 EUR) = 1050.00 EUR, which matches the Line items total and Invoice total.",
+              "citations": [
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                }
+              ],
+              "next_step": "No further action required regarding the arithmetic of the repair estimate."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "evidence": [
+          {
+            "document_id": "efb9b0e929a5dc74dc27065d",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1629
+          },
+          {
+            "document_id": "82dfd9803588abb33c18d6eb",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1434
+          },
+          {
+            "document_id": "08c519ba60e9062460389b47",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0499
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 1,
+          "input_tokens": 1288,
+          "output_tokens": 618,
+          "total_tokens": 1906,
+          "latency_seconds": 3.799
+        },
+        "retrieval": "local-lexical",
+        "verification": "Citation checks only; no second-agent review."
+      },
+      "metrics": {
+        "expected_kinds": [],
+        "predicted_kinds": [],
+        "true_positive_categories": 0,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 3,
+        "total_findings": 3
+      },
+      "elapsed_seconds": 3.8
+    },
+    {
+      "case": "01_consistent",
+      "mode": "agents",
+      "started_at": "2026-10-09T19:13:25.719731+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "60e3846775b4dfa9a151c3367b9a1088c5071fbbdcf336f6c41e8d878cc447c2",
+        "02_incident_report.pdf": "e58143cda1f101fb09ef0dd660209d6685f5d823a3faf68464955acdb1ca9681",
+        "03_repair_estimate.pdf": "167029ad9a316564bb57326b89b3adb2fbfba490b4978347e61fbc02cf8d7f0a"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "efb9b0e929a5dc74dc27065d",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1629
+              },
+              {
+                "document_id": "82dfd9803588abb33c18d6eb",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1434
+              },
+              {
+                "document_id": "08c519ba60e9062460389b47",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0499
+              }
+            ]
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1413,
+            "output_tokens": 54,
+            "total_tokens": 1467,
+            "latency_seconds": 0.861
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "action": "calculate",
+              "args": {
+                "a": "450.00",
+                "b": "600.00",
+                "operation": "add"
+              },
+              "note": "Calculate the sum of Labour and Materials from the repair estimate."
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "calculate",
+          "message": "Calculate the sum of Labour and Materials from the repair estimate.",
+          "data": {
+            "arguments": {
+              "a": "450.00",
+              "b": "600.00",
+              "operation": "add"
+            },
+            "result": {
+              "result": "1050.00"
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 2/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 2,
+            "input_tokens": 2877,
+            "output_tokens": 771,
+            "total_tokens": 3648,
+            "latency_seconds": 4.509
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is required and has been provided. There are no repeated invoice references or unexplained inconsistencies.",
+              "findings": [
+                {
+                  "title": "Incident Dates Consistent",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The incident date of 2026-03-12 is consistently reported in both the claim declaration and the incident report.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "08c519ba60e9062460389b47",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    }
+                  ],
+                  "next_step": "No further action needed regarding incident dates."
+                },
+                {
+                  "title": "Repair Estimate Arithmetic Correct",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The sum of Labour (450.00 EUR) and Materials (600.00 EUR) correctly calculates to the Line items total and Invoice total of 1050.00 EUR.",
+                  "citations": [
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                    }
+                  ],
+                  "next_step": "No further action needed regarding invoice arithmetic."
+                },
+                {
+                  "title": "Required Evidence Provided",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' (03_repair_estimate.pdf) has been provided.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Document type: repair estimate"
+                    }
+                  ],
+                  "next_step": "No further action needed regarding required evidence."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "draft",
+          "message": "Drafted 3 findings",
+          "data": {}
+        },
+        {
+          "role": "verifier",
+          "kind": "model_call",
+          "message": "Model request 3/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 3,
+            "input_tokens": 5094,
+            "output_tokens": 1195,
+            "total_tokens": 6289,
+            "latency_seconds": 6.692
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "assessments": [
+                {
+                  "index": 0,
+                  "verdict": "supported",
+                  "reason": "The incident date '2026-03-12' is explicitly stated in both the 'claim declaration' (document 82dfd9803588abb33c18d6eb, page 1) and the 'incident report' (document 08c519ba60e9062460389b47, page 1), confirming consistency."
+                },
+                {
+                  "index": 1,
+                  "verdict": "supported",
+                  "reason": "The repair estimate (document efb9b0e929a5dc74dc27065d, page 1) clearly shows 'Labour EUR: 450.00' and 'Materials EUR: 600.00'. The sum of these two values (450.00 + 600.00) is 1050.00 EUR, which matches both the 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1050.00'. The arithmetic is correct."
+                },
+                {
+                  "index": 2,
+                  "verdict": "supported",
+                  "reason": "The claim declaration (document 82dfd9803588abb33c18d6eb, page 1) specifies 'Required evidence: repair estimate'. The provided document '03_repair_estimate.pdf' (document efb9b0e929a5dc74dc27065d, page 1) is explicitly identified as 'Document type: repair estimate', fulfilling the requirement."
+                }
+              ],
+              "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is required and has been provided. There are no repeated invoice references or unexplained inconsistencies."
+            }
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "review",
+          "message": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is required and has been provided. There are no repeated invoice references or unexplained inconsistencies.",
+          "data": {
+            "review": {
+              "assessments": [
+                {
+                  "index": 0,
+                  "verdict": "supported",
+                  "reason": "The incident date '2026-03-12' is explicitly stated in both the 'claim declaration' (document 82dfd9803588abb33c18d6eb, page 1) and the 'incident report' (document 08c519ba60e9062460389b47, page 1), confirming consistency."
+                },
+                {
+                  "index": 1,
+                  "verdict": "supported",
+                  "reason": "The repair estimate (document efb9b0e929a5dc74dc27065d, page 1) clearly shows 'Labour EUR: 450.00' and 'Materials EUR: 600.00'. The sum of these two values (450.00 + 600.00) is 1050.00 EUR, which matches both the 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1050.00'. The arithmetic is correct."
+                },
+                {
+                  "index": 2,
+                  "verdict": "supported",
+                  "reason": "The claim declaration (document 82dfd9803588abb33c18d6eb, page 1) specifies 'Required evidence: repair estimate'. The provided document '03_repair_estimate.pdf' (document efb9b0e929a5dc74dc27065d, page 1) is explicitly identified as 'Document type: repair estimate', fulfilling the requirement."
+                }
+              ],
+              "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is required and has been provided. There are no repeated invoice references or unexplained inconsistencies."
+            },
+            "citation_checks": [
+              {
+                "index": 0,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 1,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 2,
+                "valid": true,
+                "errors": []
+              }
+            ]
+          }
+        }
+      ],
+      "expected_kinds": [],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is required and has been provided. There are no repeated invoice references or unexplained inconsistencies.",
+          "findings": [
+            {
+              "title": "Incident Dates Consistent",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The incident date of 2026-03-12 is consistently reported in both the claim declaration and the incident report.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "08c519ba60e9062460389b47",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                }
+              ],
+              "next_step": "No further action needed regarding incident dates."
+            },
+            {
+              "title": "Repair Estimate Arithmetic Correct",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The sum of Labour (450.00 EUR) and Materials (600.00 EUR) correctly calculates to the Line items total and Invoice total of 1050.00 EUR.",
+              "citations": [
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                }
+              ],
+              "next_step": "No further action needed regarding invoice arithmetic."
+            },
+            {
+              "title": "Required Evidence Provided",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' (03_repair_estimate.pdf) has been provided.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Document type: repair estimate"
+                }
+              ],
+              "next_step": "No further action needed regarding required evidence."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "review": {
+          "assessments": [
+            {
+              "index": 0,
+              "verdict": "supported",
+              "reason": "The incident date '2026-03-12' is explicitly stated in both the 'claim declaration' (document 82dfd9803588abb33c18d6eb, page 1) and the 'incident report' (document 08c519ba60e9062460389b47, page 1), confirming consistency."
+            },
+            {
+              "index": 1,
+              "verdict": "supported",
+              "reason": "The repair estimate (document efb9b0e929a5dc74dc27065d, page 1) clearly shows 'Labour EUR: 450.00' and 'Materials EUR: 600.00'. The sum of these two values (450.00 + 600.00) is 1050.00 EUR, which matches both the 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1050.00'. The arithmetic is correct."
+            },
+            {
+              "index": 2,
+              "verdict": "supported",
+              "reason": "The claim declaration (document 82dfd9803588abb33c18d6eb, page 1) specifies 'Required evidence: repair estimate'. The provided document '03_repair_estimate.pdf' (document efb9b0e929a5dc74dc27065d, page 1) is explicitly identified as 'Document type: repair estimate', fulfilling the requirement."
+            }
+          ],
+          "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is required and has been provided. There are no repeated invoice references or unexplained inconsistencies."
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "evidence": [
+          {
+            "document_id": "efb9b0e929a5dc74dc27065d",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1629
+          },
+          {
+            "document_id": "82dfd9803588abb33c18d6eb",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1434
+          },
+          {
+            "document_id": "08c519ba60e9062460389b47",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0499
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 3,
+          "input_tokens": 5094,
+          "output_tokens": 1195,
+          "total_tokens": 6289,
+          "latency_seconds": 6.692
+        },
+        "retrieval": "local-lexical",
+        "verification": "LLM review plus exact-quote validation. Human review remains required."
+      },
+      "metrics": {
+        "expected_kinds": [],
+        "predicted_kinds": [],
+        "true_positive_categories": 0,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 3,
+        "total_findings": 3
+      },
+      "elapsed_seconds": 6.73
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:13:32.485669+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 3 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [
+            {
+              "title": "Conflicting incident dates",
+              "kind": "contradiction",
+              "severity": "medium",
+              "explanation": "The documents state different incident dates. This does not establish fraud.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "6b15edc80ea25a7188d28be9",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-14"
+                }
+              ],
+              "next_step": "Ask the document owner to confirm the discrepancy and provide supporting evidence."
+            },
+            {
+              "title": "Invoice total does not match line items",
+              "kind": "arithmetic",
+              "severity": "medium",
+              "explanation": "The stated invoice total and item total differ by 200.00 EUR.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Invoice total EUR: 1250.00"
+                },
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Line items total EUR: 1050.00"
+                }
+              ],
+              "next_step": "Ask the document owner to confirm the discrepancy and provide supporting evidence."
+            },
+            {
+              "title": "Repeated invoice reference",
+              "kind": "duplicate",
+              "severity": "info",
+              "explanation": "The same invoice reference appears more than once. Copies or resubmissions may explain this.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Invoice number: SYN-INV-002"
+                },
+                {
+                  "document_id": "244917e83b8e3b46db0e9fee",
+                  "page": 1,
+                  "quote": "Invoice number: SYN-INV-002"
+                }
+              ],
+              "next_step": "Ask the document owner to confirm the discrepancy and provide supporting evidence."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "predicted_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "true_positive_categories": 3,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 3,
+        "total_findings": 3
+      },
+      "elapsed_seconds": 0.0
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:13:32.494053+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1485,
+            "output_tokens": 903,
+            "total_tokens": 2388,
+            "latency_seconds": 4.965
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The claim declaration and incident report provide conflicting incident dates. The repair estimate's arithmetic for the invoice total is inconsistent with the sum of labor and materials. A repair estimate is present as required. The invoice copy is noted as a resubmitted attachment, not a second payment request, which addresses potential duplicate billing concerns.",
+              "findings": [
+                {
+                  "title": "Conflicting Incident Dates",
+                  "kind": "contradiction",
+                  "severity": "high",
+                  "explanation": "The claim declaration states the incident date as 2026-03-12, while the incident report states it as 2026-03-14. This is a direct contradiction regarding a key event date.",
+                  "citations": [
+                    {
+                      "document_id": "fbb7804554c63a7993eb72c4",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "6b15edc80ea25a7188d28be9",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-14"
+                    }
+                  ],
+                  "next_step": "Investigate the discrepancy in incident dates between the claim declaration and the incident report. Request clarification from the claimant or incident reporter to determine the correct date."
+                },
+                {
+                  "title": "Repair Estimate Invoice Total Discrepancy",
+                  "kind": "arithmetic",
+                  "severity": "high",
+                  "explanation": "The repair estimate lists 'Labour EUR: 450.00' and 'Materials EUR: 600.00', which sum to 1050.00 EUR. However, the 'Invoice total EUR' is stated as 1250.00 EUR. The document explicitly states 'Tax: not applicable; no additional fees are listed.', indicating no other charges should account for the difference.",
+                  "citations": [
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed."
+                    }
+                  ],
+                  "next_step": "Request a revised repair estimate or an explanation for the 200.00 EUR difference between the line items total and the invoice total, given that no tax or additional fees are applicable."
+                },
+                {
+                  "title": "Required Evidence (Repair Estimate) is Present",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration specifies 'Required evidence: repair estimate'. A document identified as a 'repair estimate' is provided.",
+                  "citations": [
+                    {
+                      "document_id": "fbb7804554c63a7993eb72c4",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Document type: repair estimate"
+                    }
+                  ],
+                  "next_step": "No further action is needed regarding the presence of this document."
+                },
+                {
+                  "title": "Invoice Copy is a Resubmitted Attachment, Not a Second Payment Request",
+                  "kind": "duplicate",
+                  "severity": "info",
+                  "explanation": "The invoice copy explicitly states 'Copy label: resubmitted attachment, not a second payment request. A repeated reference alone does not establish double billing.' This clarifies that the document is not a duplicate billing attempt.",
+                  "citations": [
+                    {
+                      "document_id": "244917e83b8e3b46db0e9fee",
+                      "page": 1,
+                      "quote": "Copy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing."
+                    }
+                  ],
+                  "next_step": "No further action is needed regarding potential duplicate billing based on this document."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The claim declaration and incident report provide conflicting incident dates. The repair estimate's arithmetic for the invoice total is inconsistent with the sum of labor and materials. A repair estimate is present as required. The invoice copy is noted as a resubmitted attachment, not a second payment request, which addresses potential duplicate billing concerns.",
+          "findings": [
+            {
+              "title": "Conflicting Incident Dates",
+              "kind": "contradiction",
+              "severity": "high",
+              "explanation": "The claim declaration states the incident date as 2026-03-12, while the incident report states it as 2026-03-14. This is a direct contradiction regarding a key event date.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "6b15edc80ea25a7188d28be9",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-14"
+                }
+              ],
+              "next_step": "Investigate the discrepancy in incident dates between the claim declaration and the incident report. Request clarification from the claimant or incident reporter to determine the correct date."
+            },
+            {
+              "title": "Repair Estimate Invoice Total Discrepancy",
+              "kind": "arithmetic",
+              "severity": "high",
+              "explanation": "The repair estimate lists 'Labour EUR: 450.00' and 'Materials EUR: 600.00', which sum to 1050.00 EUR. However, the 'Invoice total EUR' is stated as 1250.00 EUR. The document explicitly states 'Tax: not applicable; no additional fees are listed.', indicating no other charges should account for the difference.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed."
+                }
+              ],
+              "next_step": "Request a revised repair estimate or an explanation for the 200.00 EUR difference between the line items total and the invoice total, given that no tax or additional fees are applicable."
+            },
+            {
+              "title": "Required Evidence (Repair Estimate) is Present",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration specifies 'Required evidence: repair estimate'. A document identified as a 'repair estimate' is provided.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Document type: repair estimate"
+                }
+              ],
+              "next_step": "No further action is needed regarding the presence of this document."
+            },
+            {
+              "title": "Invoice Copy is a Resubmitted Attachment, Not a Second Payment Request",
+              "kind": "duplicate",
+              "severity": "info",
+              "explanation": "The invoice copy explicitly states 'Copy label: resubmitted attachment, not a second payment request. A repeated reference alone does not establish double billing.' This clarifies that the document is not a duplicate billing attempt.",
+              "citations": [
+                {
+                  "document_id": "244917e83b8e3b46db0e9fee",
+                  "page": 1,
+                  "quote": "Copy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing."
+                }
+              ],
+              "next_step": "No further action is needed regarding potential duplicate billing based on this document."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 3,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "evidence": [
+          {
+            "document_id": "244917e83b8e3b46db0e9fee",
+            "name": "04_invoice_copy.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.2501
+          },
+          {
+            "document_id": "fbb7804554c63a7993eb72c4",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1604
+          },
+          {
+            "document_id": "4f8ac7f0955a024a91073025",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1553
+          },
+          {
+            "document_id": "6b15edc80ea25a7188d28be9",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0446
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 1,
+          "input_tokens": 1485,
+          "output_tokens": 903,
+          "total_tokens": 2388,
+          "latency_seconds": 4.965
+        },
+        "retrieval": "local-lexical",
+        "verification": "Citation checks only; no second-agent review."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "predicted_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "true_positive_categories": 3,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 4,
+        "total_findings": 4
+      },
+      "elapsed_seconds": 4.97
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "agents",
+      "started_at": "2026-10-09T19:13:37.467199+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1610,
+            "output_tokens": 60,
+            "total_tokens": 1670,
+            "latency_seconds": 0.644
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "action": "calculate",
+              "args": {
+                "a": "1050.00",
+                "b": "1250.00",
+                "operation": "subtract"
+              },
+              "note": "Calculate the difference between line items total and invoice total to find unlisted fees."
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "calculate",
+          "message": "Calculate the difference between line items total and invoice total to find unlisted fees.",
+          "data": {
+            "arguments": {
+              "a": "1050.00",
+              "b": "1250.00",
+              "operation": "subtract"
+            },
+            "result": {
+              "result": "-200.00"
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 2/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "failed",
+      "error": "Provider quota/rate limit reached (HTTP 429). Wait or check your free quota. Billing was not changed.",
+      "elapsed_seconds": 0.9
+    },
+    {
+      "case": "03_incomplete",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:18:31.330353+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "08336cfcde0114728c4163d5258836672bf81d4c93443b306a95705c3417e28a",
+        "02_incident_report.pdf": "ddeab3027fd764b0c21ebed9d833a8e3f8b3d1ac5eb83971ce82e128ce55e3ad"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [
+        "missing_information"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 1 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [
+            {
+              "title": "Required evidence not supplied",
+              "kind": "missing_information",
+              "severity": "info",
+              "explanation": "The supplied document inventory does not include a document labelled repair estimate.",
+              "citations": [
+                {
+                  "document_id": "8e5cf13b1d1b299dbab109aa",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                }
+              ],
+              "next_step": "Request the repair estimate from the case owner."
+            }
+          ],
+          "unanswered_questions": [
+            "Can the case owner supply the repair estimate?"
+          ]
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "missing_information"
+        ],
+        "predicted_kinds": [
+          "missing_information"
+        ],
+        "true_positive_categories": 1,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 1,
+        "total_findings": 1
+      },
+      "elapsed_seconds": 0.0
+    },
+    {
+      "case": "03_incomplete",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:18:31.338807+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "08336cfcde0114728c4163d5258836672bf81d4c93443b306a95705c3417e28a",
+        "02_incident_report.pdf": "ddeab3027fd764b0c21ebed9d833a8e3f8b3d1ac5eb83971ce82e128ce55e3ad"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "8e5cf13b1d1b299dbab109aa",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HILL-003\nIncident date: 2026-04-02\nIncident: damaged door at a fictional office.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1484
+              },
+              {
+                "document_id": "a57d0e115849f1f8482de79e",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HILL-003\nIncident date: 2026-04-02\nObservation: the door frame is damaged.\nInspection date: 2026-04-03\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1054
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        }
+      ],
+      "expected_kinds": [
+        "missing_information"
+      ],
+      "status": "failed",
+      "error": "Provider quota/rate limit reached (HTTP 429). Wait or check your free quota. Billing was not changed.",
+      "elapsed_seconds": 0.7
+    }
+  ],
+  "created_at": "2026-10-09T19:18:31.284887+00:00",
+  "status": "completed_with_failures",
+  "message": "Exploratory benchmark on 3 hand-authored synthetic cases. Category-level labels are coarse, not clinical or insurance validation. Agent gains are not assumed.",
+  "protocol": {
+    "objective": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+    "category_scoring": "Set comparison of issue kinds per dossier. supported findings excluded. This does not evaluate semantic correctness of every finding.",
+    "retrieval": "Recall@3 on 8 hand-authored queries; local lexical FAISS retrieval.",
+    "repetitions": 1
+  },
+  "retrieval": [
+    {
+      "case": "01_consistent",
+      "query": "claim declaration incident date",
+      "expected_file": "01_declaration.pdf",
+      "found": true,
+      "hits": [
+        "01_declaration.pdf",
+        "02_incident_report.pdf",
+        "03_repair_estimate.pdf"
+      ]
+    },
+    {
+      "case": "01_consistent",
+      "query": "inspection date observation incident report",
+      "expected_file": "02_incident_report.pdf",
+      "found": true,
+      "hits": [
+        "02_incident_report.pdf",
+        "01_declaration.pdf",
+        "03_repair_estimate.pdf"
+      ]
+    },
+    {
+      "case": "01_consistent",
+      "query": "labour materials invoice total",
+      "expected_file": "03_repair_estimate.pdf",
+      "found": true,
+      "hits": [
+        "03_repair_estimate.pdf",
+        "02_incident_report.pdf",
+        "01_declaration.pdf"
+      ]
+    },
+    {
+      "case": "02_conflicting",
+      "query": "claim declaration incident date",
+      "expected_file": "01_declaration.pdf",
+      "found": true,
+      "hits": [
+        "01_declaration.pdf",
+        "02_incident_report.pdf",
+        "04_invoice_copy.pdf"
+      ]
+    },
+    {
+      "case": "02_conflicting",
+      "query": "inspection date observation incident report",
+      "expected_file": "02_incident_report.pdf",
+      "found": true,
+      "hits": [
+        "02_incident_report.pdf",
+        "01_declaration.pdf",
+        "04_invoice_copy.pdf"
+      ]
+    },
+    {
+      "case": "02_conflicting",
+      "query": "labour materials invoice total",
+      "expected_file": "03_repair_estimate.pdf",
+      "found": true,
+      "hits": [
+        "03_repair_estimate.pdf",
+        "04_invoice_copy.pdf",
+        "02_incident_report.pdf"
+      ]
+    },
+    {
+      "case": "03_incomplete",
+      "query": "claim declaration incident date",
+      "expected_file": "01_declaration.pdf",
+      "found": true,
+      "hits": [
+        "01_declaration.pdf",
+        "02_incident_report.pdf"
+      ]
+    },
+    {
+      "case": "03_incomplete",
+      "query": "inspection date observation incident report",
+      "expected_file": "02_incident_report.pdf",
+      "found": true,
+      "hits": [
+        "02_incident_report.pdf",
+        "01_declaration.pdf"
+      ]
+    }
+  ],
+  "summary": {
+    "synthetic_cases": 3,
+    "retrieval_queries": 8,
+    "retrieval_recall_at_3": 1.0,
+    "offline_runs_completed": 3,
+    "live_runs_completed": 3,
+    "failed_runs": 2
+  },
+  "development_history": [
+    {
+      "case": "02_conflicting",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:08:13.494579+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1485,
+            "output_tokens": 1213,
+            "total_tokens": 2698,
+            "latency_seconds": 6.026
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The incident date in the declaration (2026-03-12) contradicts the incident date in the incident report (2026-03-14). The repair estimate's arithmetic for the invoice total is incorrect. A repair estimate is present as required. The invoice copy is noted as a resubmitted attachment, not a second payment request, addressing potential concerns about repeated invoice references.",
+              "findings": [
+                {
+                  "title": "Incident Date Contradiction",
+                  "kind": "contradiction",
+                  "severity": "high",
+                  "explanation": "The incident date provided in the claim declaration is 2026-03-12, while the incident report states the incident date as 2026-03-14. This is a direct contradiction regarding a key event date.",
+                  "citations": [
+                    {
+                      "document_id": "fbb7804554c63a7993eb72c4",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "6b15edc80ea25a7188d28be9",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-14"
+                    }
+                  ],
+                  "next_step": "Investigate the discrepancy in incident dates between the declaration and the incident report. Request clarification from the claimant or incident reporter to determine the correct date of the incident."
+                },
+                {
+                  "title": "Repair Estimate Invoice Total Arithmetic Error",
+                  "kind": "arithmetic",
+                  "severity": "medium",
+                  "explanation": "The repair estimate lists 'Labour EUR: 450.00' and 'Materials EUR: 600.00', which correctly sum to 'Line items total EUR: 1050.00'. However, the 'Invoice total EUR' is stated as '1250.00'. There is no explanation for the additional 200.00 EUR, as 'Tax: not applicable; no additional fees are listed.'",
+                  "citations": [
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed."
+                    }
+                  ],
+                  "next_step": "Request clarification on the discrepancy between the line items total (1050.00 EUR) and the stated invoice total (1250.00 EUR) from the repair service. Ask for an itemized breakdown of any additional charges not explicitly listed as labour or materials."
+                },
+                {
+                  "title": "Required Evidence Present",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration states that 'Required evidence: repair estimate'. A document identified as a 'repair estimate' (document 03_repair_estimate.pdf) has been provided.",
+                  "citations": [
+                    {
+                      "document_id": "fbb7804554c63a7993eb72c4",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Document type: repair estimate"
+                    }
+                  ],
+                  "next_step": "No further action required regarding the presence of this specific evidence."
+                },
+                {
+                  "title": "Invoice Copy Clarified as Resubmission",
+                  "kind": "info",
+                  "severity": "info",
+                  "explanation": "An invoice copy (SYN-INV-002) is present and explicitly labeled as a 'resubmitted attachment, not a second payment request.' This clarifies that the repeated reference to the invoice number does not indicate double billing.",
+                  "citations": [
+                    {
+                      "document_id": "244917e83b8e3b46db0e9fee",
+                      "page": 1,
+                      "quote": "Invoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing."
+                    },
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Invoice number: SYN-INV-002"
+                    }
+                  ],
+                  "next_step": "No further action required regarding potential double billing based on repeated invoice references, as the document explicitly addresses this."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "failed",
+      "error": "ValidationError",
+      "elapsed_seconds": 6.03
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:11:21.655396+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "failed",
+      "error": "Provider returned HTTP 400. Check model access and local configuration.",
+      "elapsed_seconds": 0.84
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:11:54.258312+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "failed",
+      "error": "Provider returned HTTP 400. Check model access and local configuration.",
+      "elapsed_seconds": 0.33
+    },
+    {
+      "case": "01_consistent",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:08:02.950571+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "60e3846775b4dfa9a151c3367b9a1088c5071fbbdcf336f6c41e8d878cc447c2",
+        "02_incident_report.pdf": "e58143cda1f101fb09ef0dd660209d6685f5d823a3faf68464955acdb1ca9681",
+        "03_repair_estimate.pdf": "167029ad9a316564bb57326b89b3adb2fbfba490b4978347e61fbc02cf8d7f0a"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 0 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [],
+          "unanswered_questions": []
+        },
+        "citation_checks": [],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [],
+        "predicted_kinds": [],
+        "true_positive_categories": 0,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 0,
+        "total_findings": 0
+      },
+      "elapsed_seconds": 0.0
+    },
+    {
+      "case": "01_consistent",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:08:02.956095+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "60e3846775b4dfa9a151c3367b9a1088c5071fbbdcf336f6c41e8d878cc447c2",
+        "02_incident_report.pdf": "e58143cda1f101fb09ef0dd660209d6685f5d823a3faf68464955acdb1ca9681",
+        "03_repair_estimate.pdf": "167029ad9a316564bb57326b89b3adb2fbfba490b4978347e61fbc02cf8d7f0a"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "efb9b0e929a5dc74dc27065d",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1629
+              },
+              {
+                "document_id": "82dfd9803588abb33c18d6eb",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1434
+              },
+              {
+                "document_id": "08c519ba60e9062460389b47",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0499
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1288,
+            "output_tokens": 731,
+            "total_tokens": 2019,
+            "latency_seconds": 3.769
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The incident date is consistently reported across the declaration and incident report. A repair estimate is provided as required. The arithmetic in the repair estimate is correct. No duplicate invoice references or missing required evidence were found.",
+              "findings": [
+                {
+                  "title": "Incident Date Consistency",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The incident date is consistently reported as 2026-03-12 in both the claim declaration and the incident report.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "08c519ba60e9062460389b47",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    }
+                  ],
+                  "next_step": "No further action needed regarding incident date consistency."
+                },
+                {
+                  "title": "Required Evidence Provided",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' (03_repair_estimate.pdf) has been provided.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Document type: repair estimate\nInvoice number: SYN-INV-001"
+                    }
+                  ],
+                  "next_step": "No further action needed regarding required evidence."
+                },
+                {
+                  "title": "Repair Estimate Arithmetic",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The line items total and invoice total in the repair estimate are correctly calculated as the sum of labour and materials (450.00 EUR + 600.00 EUR = 1050.00 EUR).",
+                  "citations": [
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                    }
+                  ],
+                  "next_step": "No further action needed regarding repair estimate arithmetic."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        }
+      ],
+      "expected_kinds": [],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The incident date is consistently reported across the declaration and incident report. A repair estimate is provided as required. The arithmetic in the repair estimate is correct. No duplicate invoice references or missing required evidence were found.",
+          "findings": [
+            {
+              "title": "Incident Date Consistency",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The incident date is consistently reported as 2026-03-12 in both the claim declaration and the incident report.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "08c519ba60e9062460389b47",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                }
+              ],
+              "next_step": "No further action needed regarding incident date consistency."
+            },
+            {
+              "title": "Required Evidence Provided",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' (03_repair_estimate.pdf) has been provided.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Document type: repair estimate\nInvoice number: SYN-INV-001"
+                }
+              ],
+              "next_step": "No further action needed regarding required evidence."
+            },
+            {
+              "title": "Repair Estimate Arithmetic",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The line items total and invoice total in the repair estimate are correctly calculated as the sum of labour and materials (450.00 EUR + 600.00 EUR = 1050.00 EUR).",
+              "citations": [
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                }
+              ],
+              "next_step": "No further action needed regarding repair estimate arithmetic."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "evidence": [
+          {
+            "document_id": "efb9b0e929a5dc74dc27065d",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1629
+          },
+          {
+            "document_id": "82dfd9803588abb33c18d6eb",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1434
+          },
+          {
+            "document_id": "08c519ba60e9062460389b47",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0499
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 1,
+          "input_tokens": 1288,
+          "output_tokens": 731,
+          "total_tokens": 2019,
+          "latency_seconds": 3.769
+        },
+        "retrieval": "local-lexical",
+        "verification": "Citation checks only; no second-agent review."
+      },
+      "metrics": {
+        "expected_kinds": [],
+        "predicted_kinds": [],
+        "true_positive_categories": 0,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 3,
+        "total_findings": 3
+      },
+      "elapsed_seconds": 3.77
+    },
+    {
+      "case": "01_consistent",
+      "mode": "agents",
+      "started_at": "2026-10-09T19:08:06.733540+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "60e3846775b4dfa9a151c3367b9a1088c5071fbbdcf336f6c41e8d878cc447c2",
+        "02_incident_report.pdf": "e58143cda1f101fb09ef0dd660209d6685f5d823a3faf68464955acdb1ca9681",
+        "03_repair_estimate.pdf": "167029ad9a316564bb57326b89b3adb2fbfba490b4978347e61fbc02cf8d7f0a"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "efb9b0e929a5dc74dc27065d",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1629
+              },
+              {
+                "document_id": "82dfd9803588abb33c18d6eb",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1434
+              },
+              {
+                "document_id": "08c519ba60e9062460389b47",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0499
+              }
+            ]
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1413,
+            "output_tokens": 54,
+            "total_tokens": 1467,
+            "latency_seconds": 0.898
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "action": "calculate",
+              "args": {
+                "a": "450.00",
+                "b": "600.00",
+                "operation": "add"
+              },
+              "note": "Calculate the sum of Labour and Materials from the repair estimate."
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "calculate",
+          "message": "Calculate the sum of Labour and Materials from the repair estimate.",
+          "data": {
+            "arguments": {
+              "a": "450.00",
+              "b": "600.00",
+              "operation": "add"
+            },
+            "result": {
+              "result": "1050.00"
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 2/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 2,
+            "input_tokens": 2877,
+            "output_tokens": 670,
+            "total_tokens": 3547,
+            "latency_seconds": 4.132
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is provided as required evidence. There are no repeated invoice references or unexplained inconsistencies.",
+              "findings": [
+                {
+                  "title": "Consistent Incident Dates",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The incident date of '2026-03-12' is consistently reported in both the claim declaration and the incident report.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "08c519ba60e9062460389b47",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    }
+                  ],
+                  "next_step": "No further action required regarding incident dates."
+                },
+                {
+                  "title": "Correct Invoice Arithmetic",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The sum of 'Labour EUR: 450.00' and 'Materials EUR: 600.00' correctly calculates to 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1050.00' as stated in the repair estimate.",
+                  "citations": [
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                    }
+                  ],
+                  "next_step": "No further action required regarding invoice arithmetic."
+                },
+                {
+                  "title": "Required Evidence Provided",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration states 'Required evidence: repair estimate', and a document identified as a 'repair estimate' with invoice number 'SYN-INV-001' has been provided.",
+                  "citations": [
+                    {
+                      "document_id": "82dfd9803588abb33c18d6eb",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "efb9b0e929a5dc74dc27065d",
+                      "page": 1,
+                      "quote": "Document type: repair estimate\nInvoice number: SYN-INV-001"
+                    }
+                  ],
+                  "next_step": "No further action required regarding required evidence."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "draft",
+          "message": "Drafted 3 findings",
+          "data": {}
+        },
+        {
+          "role": "verifier",
+          "kind": "model_call",
+          "message": "Model request 3/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 3,
+            "input_tokens": 5127,
+            "output_tokens": 1116,
+            "total_tokens": 6243,
+            "latency_seconds": 6.6659999999999995
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "assessments": [
+                {
+                  "index": 0,
+                  "verdict": "supported",
+                  "reason": "The finding accurately states that the incident date '2026-03-12' is present in both the claim declaration (document 82dfd9803588abb33c18d6eb, page 1) and the incident report (document 08c519ba60e9062460389b47, page 1). The citations provided directly support this claim."
+                },
+                {
+                  "index": 1,
+                  "verdict": "supported",
+                  "reason": "The finding correctly calculates that 450.00 EUR (Labour) + 600.00 EUR (Materials) equals 1050.00 EUR, which matches both the 'Line items total EUR' and 'Invoice total EUR' in the repair estimate (document efb9b0e929a5dc74dc27065d, page 1). The arithmetic is sound and the citation is accurate."
+                },
+                {
+                  "index": 2,
+                  "verdict": "supported",
+                  "reason": "The claim declaration (document 82dfd9803588abb33c18d6eb, page 1) explicitly states 'Required evidence: repair estimate'. A document identified as a 'repair estimate' with invoice number 'SYN-INV-001' (document efb9b0e929a5dc74dc27065d, page 1) has been provided. The finding is well-supported by the evidence."
+                }
+              ],
+              "summary": "All findings are supported by the provided evidence. The incident dates are consistent across documents, the invoice arithmetic is correct, and the required repair estimate has been submitted. There are no inconsistencies or missing information identified based on the objective."
+            }
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "review",
+          "message": "All findings are supported by the provided evidence. The incident dates are consistent across documents, the invoice arithmetic is correct, and the required repair estimate has been submitted. There are no inconsistencies or missing information identified based on the objective.",
+          "data": {
+            "review": {
+              "assessments": [
+                {
+                  "index": 0,
+                  "verdict": "supported",
+                  "reason": "The finding accurately states that the incident date '2026-03-12' is present in both the claim declaration (document 82dfd9803588abb33c18d6eb, page 1) and the incident report (document 08c519ba60e9062460389b47, page 1). The citations provided directly support this claim."
+                },
+                {
+                  "index": 1,
+                  "verdict": "supported",
+                  "reason": "The finding correctly calculates that 450.00 EUR (Labour) + 600.00 EUR (Materials) equals 1050.00 EUR, which matches both the 'Line items total EUR' and 'Invoice total EUR' in the repair estimate (document efb9b0e929a5dc74dc27065d, page 1). The arithmetic is sound and the citation is accurate."
+                },
+                {
+                  "index": 2,
+                  "verdict": "supported",
+                  "reason": "The claim declaration (document 82dfd9803588abb33c18d6eb, page 1) explicitly states 'Required evidence: repair estimate'. A document identified as a 'repair estimate' with invoice number 'SYN-INV-001' (document efb9b0e929a5dc74dc27065d, page 1) has been provided. The finding is well-supported by the evidence."
+                }
+              ],
+              "summary": "All findings are supported by the provided evidence. The incident dates are consistent across documents, the invoice arithmetic is correct, and the required repair estimate has been submitted. There are no inconsistencies or missing information identified based on the objective."
+            },
+            "citation_checks": [
+              {
+                "index": 0,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 1,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 2,
+                "valid": true,
+                "errors": []
+              }
+            ]
+          }
+        }
+      ],
+      "expected_kinds": [],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The incident dates are consistent across the declaration and incident report. The repair estimate's arithmetic for the invoice total is correct. A repair estimate is provided as required evidence. There are no repeated invoice references or unexplained inconsistencies.",
+          "findings": [
+            {
+              "title": "Consistent Incident Dates",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The incident date of '2026-03-12' is consistently reported in both the claim declaration and the incident report.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "08c519ba60e9062460389b47",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                }
+              ],
+              "next_step": "No further action required regarding incident dates."
+            },
+            {
+              "title": "Correct Invoice Arithmetic",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The sum of 'Labour EUR: 450.00' and 'Materials EUR: 600.00' correctly calculates to 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1050.00' as stated in the repair estimate.",
+              "citations": [
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00"
+                }
+              ],
+              "next_step": "No further action required regarding invoice arithmetic."
+            },
+            {
+              "title": "Required Evidence Provided",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration states 'Required evidence: repair estimate', and a document identified as a 'repair estimate' with invoice number 'SYN-INV-001' has been provided.",
+              "citations": [
+                {
+                  "document_id": "82dfd9803588abb33c18d6eb",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "efb9b0e929a5dc74dc27065d",
+                  "page": 1,
+                  "quote": "Document type: repair estimate\nInvoice number: SYN-INV-001"
+                }
+              ],
+              "next_step": "No further action required regarding required evidence."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "review": {
+          "assessments": [
+            {
+              "index": 0,
+              "verdict": "supported",
+              "reason": "The finding accurately states that the incident date '2026-03-12' is present in both the claim declaration (document 82dfd9803588abb33c18d6eb, page 1) and the incident report (document 08c519ba60e9062460389b47, page 1). The citations provided directly support this claim."
+            },
+            {
+              "index": 1,
+              "verdict": "supported",
+              "reason": "The finding correctly calculates that 450.00 EUR (Labour) + 600.00 EUR (Materials) equals 1050.00 EUR, which matches both the 'Line items total EUR' and 'Invoice total EUR' in the repair estimate (document efb9b0e929a5dc74dc27065d, page 1). The arithmetic is sound and the citation is accurate."
+            },
+            {
+              "index": 2,
+              "verdict": "supported",
+              "reason": "The claim declaration (document 82dfd9803588abb33c18d6eb, page 1) explicitly states 'Required evidence: repair estimate'. A document identified as a 'repair estimate' with invoice number 'SYN-INV-001' (document efb9b0e929a5dc74dc27065d, page 1) has been provided. The finding is well-supported by the evidence."
+            }
+          ],
+          "summary": "All findings are supported by the provided evidence. The incident dates are consistent across documents, the invoice arithmetic is correct, and the required repair estimate has been submitted. There are no inconsistencies or missing information identified based on the objective."
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "evidence": [
+          {
+            "document_id": "efb9b0e929a5dc74dc27065d",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-001\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1050.00\nTax: not applicable in this synthetic example.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1629
+          },
+          {
+            "document_id": "82dfd9803588abb33c18d6eb",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nIncident: water leak at a fictional workshop.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1434
+          },
+          {
+            "document_id": "08c519ba60e9062460389b47",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-HARBOR-001\nIncident date: 2026-03-12\nObservation: a pipe connection leaked.\nInspection date: 2026-03-13\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0499
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 3,
+          "input_tokens": 5127,
+          "output_tokens": 1116,
+          "total_tokens": 6243,
+          "latency_seconds": 6.6659999999999995
+        },
+        "retrieval": "local-lexical",
+        "verification": "LLM review plus exact-quote validation. Human review remains required."
+      },
+      "metrics": {
+        "expected_kinds": [],
+        "predicted_kinds": [],
+        "true_positive_categories": 0,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 3,
+        "total_findings": 3
+      },
+      "elapsed_seconds": 6.7
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:08:13.485749+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 3 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [
+            {
+              "title": "Conflicting incident dates",
+              "kind": "contradiction",
+              "severity": "medium",
+              "explanation": "The documents state different incident dates. This does not establish fraud.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "6b15edc80ea25a7188d28be9",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-14"
+                }
+              ],
+              "next_step": "Ask the document owner to confirm the discrepancy and provide supporting evidence."
+            },
+            {
+              "title": "Invoice total does not match line items",
+              "kind": "arithmetic",
+              "severity": "medium",
+              "explanation": "The stated invoice total and item total differ by 200.00 EUR.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Invoice total EUR: 1250.00"
+                },
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Line items total EUR: 1050.00"
+                }
+              ],
+              "next_step": "Ask the document owner to confirm the discrepancy and provide supporting evidence."
+            },
+            {
+              "title": "Repeated invoice reference",
+              "kind": "duplicate",
+              "severity": "info",
+              "explanation": "The same invoice reference appears more than once. Copies or resubmissions may explain this.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Invoice number: SYN-INV-002"
+                },
+                {
+                  "document_id": "244917e83b8e3b46db0e9fee",
+                  "page": 1,
+                  "quote": "Invoice number: SYN-INV-002"
+                }
+              ],
+              "next_step": "Ask the document owner to confirm the discrepancy and provide supporting evidence."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "predicted_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "true_positive_categories": 3,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 3,
+        "total_findings": 3
+      },
+      "elapsed_seconds": 0.0
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "baseline",
+      "started_at": "2026-10-09T19:12:16.922239+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "draft",
+          "message": "Single RAG answer: no tool loop and no second agent",
+          "data": {}
+        },
+        {
+          "role": "baseline",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1485,
+            "output_tokens": 903,
+            "total_tokens": 2388,
+            "latency_seconds": 4.967
+          }
+        },
+        {
+          "role": "baseline",
+          "kind": "model_response",
+          "message": "Structured model output",
+          "data": {
+            "response": {
+              "summary": "The claim declaration and incident report provide conflicting incident dates. The repair estimate's arithmetic for the invoice total is inconsistent with the sum of labor and materials. A repair estimate is present as required. The invoice copy is noted as a resubmitted attachment, not a second payment request, which addresses potential duplicate billing concerns.",
+              "findings": [
+                {
+                  "title": "Conflicting Incident Dates",
+                  "kind": "contradiction",
+                  "severity": "high",
+                  "explanation": "The claim declaration states the incident date as 2026-03-12, while the incident report states it as 2026-03-14. This is a direct contradiction regarding a key event date.",
+                  "citations": [
+                    {
+                      "document_id": "fbb7804554c63a7993eb72c4",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-12"
+                    },
+                    {
+                      "document_id": "6b15edc80ea25a7188d28be9",
+                      "page": 1,
+                      "quote": "Incident date: 2026-03-14"
+                    }
+                  ],
+                  "next_step": "Investigate the discrepancy in incident dates between the claim declaration and the incident report. Request clarification from the claimant or incident reporter to determine the correct date."
+                },
+                {
+                  "title": "Repair Estimate Invoice Total Discrepancy",
+                  "kind": "arithmetic",
+                  "severity": "high",
+                  "explanation": "The repair estimate lists 'Labour EUR: 450.00' and 'Materials EUR: 600.00', which sum to 1050.00 EUR. However, the 'Invoice total EUR' is stated as 1250.00 EUR. The document explicitly states 'Tax: not applicable; no additional fees are listed.', indicating no other charges should account for the difference.",
+                  "citations": [
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed."
+                    }
+                  ],
+                  "next_step": "Request a revised repair estimate or an explanation for the 200.00 EUR difference between the line items total and the invoice total, given that no tax or additional fees are applicable."
+                },
+                {
+                  "title": "Required Evidence (Repair Estimate) is Present",
+                  "kind": "supported",
+                  "severity": "info",
+                  "explanation": "The claim declaration specifies 'Required evidence: repair estimate'. A document identified as a 'repair estimate' is provided.",
+                  "citations": [
+                    {
+                      "document_id": "fbb7804554c63a7993eb72c4",
+                      "page": 1,
+                      "quote": "Required evidence: repair estimate"
+                    },
+                    {
+                      "document_id": "4f8ac7f0955a024a91073025",
+                      "page": 1,
+                      "quote": "Document type: repair estimate"
+                    }
+                  ],
+                  "next_step": "No further action is needed regarding the presence of this document."
+                },
+                {
+                  "title": "Invoice Copy is a Resubmitted Attachment, Not a Second Payment Request",
+                  "kind": "duplicate",
+                  "severity": "info",
+                  "explanation": "The invoice copy explicitly states 'Copy label: resubmitted attachment, not a second payment request. A repeated reference alone does not establish double billing.' This clarifies that the document is not a duplicate billing attempt.",
+                  "citations": [
+                    {
+                      "document_id": "244917e83b8e3b46db0e9fee",
+                      "page": 1,
+                      "quote": "Copy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing."
+                    }
+                  ],
+                  "next_step": "No further action is needed regarding potential duplicate billing based on this document."
+                }
+              ],
+              "unanswered_questions": []
+            }
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The claim declaration and incident report provide conflicting incident dates. The repair estimate's arithmetic for the invoice total is inconsistent with the sum of labor and materials. A repair estimate is present as required. The invoice copy is noted as a resubmitted attachment, not a second payment request, which addresses potential duplicate billing concerns.",
+          "findings": [
+            {
+              "title": "Conflicting Incident Dates",
+              "kind": "contradiction",
+              "severity": "high",
+              "explanation": "The claim declaration states the incident date as 2026-03-12, while the incident report states it as 2026-03-14. This is a direct contradiction regarding a key event date.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "6b15edc80ea25a7188d28be9",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-14"
+                }
+              ],
+              "next_step": "Investigate the discrepancy in incident dates between the claim declaration and the incident report. Request clarification from the claimant or incident reporter to determine the correct date."
+            },
+            {
+              "title": "Repair Estimate Invoice Total Discrepancy",
+              "kind": "arithmetic",
+              "severity": "high",
+              "explanation": "The repair estimate lists 'Labour EUR: 450.00' and 'Materials EUR: 600.00', which sum to 1050.00 EUR. However, the 'Invoice total EUR' is stated as 1250.00 EUR. The document explicitly states 'Tax: not applicable; no additional fees are listed.', indicating no other charges should account for the difference.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Labour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed."
+                }
+              ],
+              "next_step": "Request a revised repair estimate or an explanation for the 200.00 EUR difference between the line items total and the invoice total, given that no tax or additional fees are applicable."
+            },
+            {
+              "title": "Required Evidence (Repair Estimate) is Present",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration specifies 'Required evidence: repair estimate'. A document identified as a 'repair estimate' is provided.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Document type: repair estimate"
+                }
+              ],
+              "next_step": "No further action is needed regarding the presence of this document."
+            },
+            {
+              "title": "Invoice Copy is a Resubmitted Attachment, Not a Second Payment Request",
+              "kind": "duplicate",
+              "severity": "info",
+              "explanation": "The invoice copy explicitly states 'Copy label: resubmitted attachment, not a second payment request. A repeated reference alone does not establish double billing.' This clarifies that the document is not a duplicate billing attempt.",
+              "citations": [
+                {
+                  "document_id": "244917e83b8e3b46db0e9fee",
+                  "page": 1,
+                  "quote": "Copy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing."
+                }
+              ],
+              "next_step": "No further action is needed regarding potential duplicate billing based on this document."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 3,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "evidence": [
+          {
+            "document_id": "244917e83b8e3b46db0e9fee",
+            "name": "04_invoice_copy.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.2501
+          },
+          {
+            "document_id": "fbb7804554c63a7993eb72c4",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1604
+          },
+          {
+            "document_id": "4f8ac7f0955a024a91073025",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1553
+          },
+          {
+            "document_id": "6b15edc80ea25a7188d28be9",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0446
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 1,
+          "input_tokens": 1485,
+          "output_tokens": 903,
+          "total_tokens": 2388,
+          "latency_seconds": 4.967
+        },
+        "retrieval": "local-lexical",
+        "verification": "Citation checks only; no second-agent review."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "predicted_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "true_positive_categories": 3,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 4,
+        "total_findings": 4
+      },
+      "elapsed_seconds": 4.97
+    },
+    {
+      "case": "02_conflicting",
+      "mode": "agents",
+      "started_at": "2026-10-09T19:04:59.705362+00:00",
+      "model": "gemini-2.5-flash",
+      "document_hashes": {
+        "01_declaration.pdf": "b3fd4fe11ba4721a69dcf84abf017f591f9226c28dabb6bd0778b4f473036e4f",
+        "02_incident_report.pdf": "f847069ce75077fc5b3752b54f9d54c8bf60249a93f7bb145185ce8164912e74",
+        "03_repair_estimate.pdf": "8561c24a4f6481e48b7a8d7b8ab0fd27d8efd112e5d43aa48f8826ef380ab05b",
+        "04_invoice_copy.pdf": "30b8772b07930621f8ce9984e020ae3666a42598b65e0ef9e6b793a27381320f"
+      },
+      "events": [
+        {
+          "role": "retriever",
+          "kind": "index",
+          "message": "Indexing page-preserving chunks",
+          "data": {
+            "retrieval": "Local lexical vectors + FAISS"
+          }
+        },
+        {
+          "role": "retriever",
+          "kind": "search",
+          "message": "Retrieved initial evidence",
+          "data": {
+            "query": "Check incident dates, invoice arithmetic, repeated invoice references and missing required evidence. Distinguish benign copies from unexplained inconsistencies. Cite exact source passages. Do not invent requirements beyond the supplied documents.",
+            "hits": [
+              {
+                "document_id": "244917e83b8e3b46db0e9fee",
+                "name": "04_invoice_copy.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.2501
+              },
+              {
+                "document_id": "fbb7804554c63a7993eb72c4",
+                "name": "01_declaration.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1604
+              },
+              {
+                "document_id": "4f8ac7f0955a024a91073025",
+                "name": "03_repair_estimate.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.1553
+              },
+              {
+                "document_id": "6b15edc80ea25a7188d28be9",
+                "name": "02_incident_report.pdf",
+                "page": 1,
+                "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+                "score": 0.0446
+              }
+            ]
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 1/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 1,
+            "input_tokens": 1610,
+            "output_tokens": 60,
+            "total_tokens": 1670,
+            "latency_seconds": 1.634
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "calculate",
+          "message": "Calculate the difference between line items total and invoice total to find unlisted fees.",
+          "data": {
+            "arguments": {
+              "a": "1050.00",
+              "b": "1250.00",
+              "operation": "subtract"
+            },
+            "result": {
+              "result": "-200.00"
+            }
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "model_call",
+          "message": "Model request 2/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 2,
+            "input_tokens": 3272,
+            "output_tokens": 918,
+            "total_tokens": 4190,
+            "latency_seconds": 5.779
+          }
+        },
+        {
+          "role": "investigator",
+          "kind": "draft",
+          "message": "Drafted 4 findings",
+          "data": {}
+        },
+        {
+          "role": "verifier",
+          "kind": "model_call",
+          "message": "Model request 3/8",
+          "data": {
+            "model": "gemini-2.5-flash"
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "usage",
+          "message": "Provider usage recorded",
+          "data": {
+            "calls": 3,
+            "input_tokens": 6107,
+            "output_tokens": 1453,
+            "total_tokens": 7560,
+            "latency_seconds": 9.129999999999999
+          }
+        },
+        {
+          "role": "verifier",
+          "kind": "review",
+          "message": "The report accurately identifies a contradiction in incident dates between the declaration and the incident report. It also correctly flags an arithmetic discrepancy in the repair estimate where the line items total does not reconcile with the invoice total, with no explanation for the difference. The report correctly notes that the required repair estimate is present. Finally, it accurately clarifies that the invoice copy is a resubmitted attachment, not a duplicate payment request, based on explicit labeling within the document itself.",
+          "data": {
+            "review": {
+              "assessments": [
+                {
+                  "index": 0,
+                  "verdict": "supported",
+                  "reason": "The finding accurately identifies and cites the contradictory incident dates from the claim declaration ('2026-03-12' on page 1 of 01_declaration.pdf) and the incident report ('2026-03-14' on page 1 of 02_incident_report.pdf). This is a direct contradiction of a key event date."
+                },
+                {
+                  "index": 1,
+                  "verdict": "supported",
+                  "reason": "The finding correctly identifies an arithmetic discrepancy. The repair estimate (03_repair_estimate.pdf, page 1) states 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1250.00'. The document explicitly states 'Tax: not applicable; no additional fees are listed.', confirming that the 200.00 EUR difference is unexplained within the provided evidence."
+                },
+                {
+                  "index": 2,
+                  "verdict": "supported",
+                  "reason": "The finding is supported. The claim declaration (01_declaration.pdf, page 1) lists 'Required evidence: repair estimate'. A document identified as a 'repair estimate' (03_repair_estimate.pdf, page 1) has been provided, fulfilling this requirement."
+                },
+                {
+                  "index": 3,
+                  "verdict": "supported",
+                  "reason": "The finding is supported by the evidence. The invoice copy (04_invoice_copy.pdf, page 1) explicitly contains the text 'Copy label: resubmitted attachment, not a second payment request. A repeated reference alone does not establish double billing.', which directly addresses and clarifies the nature of the document and its reference to invoice number SYN-INV-002."
+                }
+              ],
+              "summary": "The report accurately identifies a contradiction in incident dates between the declaration and the incident report. It also correctly flags an arithmetic discrepancy in the repair estimate where the line items total does not reconcile with the invoice total, with no explanation for the difference. The report correctly notes that the required repair estimate is present. Finally, it accurately clarifies that the invoice copy is a resubmitted attachment, not a duplicate payment request, based on explicit labeling within the document itself."
+            },
+            "citation_checks": [
+              {
+                "index": 0,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 1,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 2,
+                "valid": true,
+                "errors": []
+              },
+              {
+                "index": 3,
+                "valid": true,
+                "errors": []
+              }
+            ]
+          }
+        }
+      ],
+      "expected_kinds": [
+        "contradiction",
+        "arithmetic",
+        "duplicate"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "The incident dates provided in the declaration and incident report contradict each other. The repair estimate's line items total does not match the invoice total, indicating a discrepancy of 200.00 EUR. A required repair estimate is present. The invoice copy is explicitly labeled as a resubmitted attachment, not a second payment request, addressing potential concerns about repeated references.",
+          "findings": [
+            {
+              "title": "Contradictory Incident Dates",
+              "kind": "contradiction",
+              "severity": "high",
+              "explanation": "The incident date in the claim declaration is 2026-03-12, while the incident report states the incident date as 2026-03-14. This is a direct contradiction regarding a key event date.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-12"
+                },
+                {
+                  "document_id": "6b15edc80ea25a7188d28be9",
+                  "page": 1,
+                  "quote": "Incident date: 2026-03-14"
+                }
+              ],
+              "next_step": "Investigate which incident date is correct and reconcile the discrepancy between the declaration and the incident report."
+            },
+            {
+              "title": "Invoice Total Mismatch in Repair Estimate",
+              "kind": "arithmetic",
+              "severity": "high",
+              "explanation": "The repair estimate lists 'Line items total EUR: 1050.00' but 'Invoice total EUR: 1250.00'. The difference is 200.00 EUR, which is not accounted for by tax or additional fees according to the document.",
+              "citations": [
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Line items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed."
+                }
+              ],
+              "next_step": "Request clarification on the 200.00 EUR difference between the line items total and the invoice total in the repair estimate."
+            },
+            {
+              "title": "Required Evidence Present",
+              "kind": "supported",
+              "severity": "info",
+              "explanation": "The claim declaration states that a 'repair estimate' is required evidence, and a document identified as a 'repair estimate' has been provided.",
+              "citations": [
+                {
+                  "document_id": "fbb7804554c63a7993eb72c4",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                },
+                {
+                  "document_id": "4f8ac7f0955a024a91073025",
+                  "page": 1,
+                  "quote": "Document type: repair estimate"
+                }
+              ],
+              "next_step": "No further action required regarding this specific requirement."
+            },
+            {
+              "title": "Invoice Copy is a Resubmitted Attachment",
+              "kind": "duplicate",
+              "severity": "info",
+              "explanation": "The invoice copy explicitly states that it is a 'resubmitted attachment, not a second payment request', clarifying that the repeated reference to invoice number SYN-INV-002 is benign and not an attempt at double billing.",
+              "citations": [
+                {
+                  "document_id": "244917e83b8e3b46db0e9fee",
+                  "page": 1,
+                  "quote": "Invoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing."
+                }
+              ],
+              "next_step": "No further action required regarding potential double billing based on repeated invoice references."
+            }
+          ],
+          "unanswered_questions": []
+        },
+        "review": {
+          "assessments": [
+            {
+              "index": 0,
+              "verdict": "supported",
+              "reason": "The finding accurately identifies and cites the contradictory incident dates from the claim declaration ('2026-03-12' on page 1 of 01_declaration.pdf) and the incident report ('2026-03-14' on page 1 of 02_incident_report.pdf). This is a direct contradiction of a key event date."
+            },
+            {
+              "index": 1,
+              "verdict": "supported",
+              "reason": "The finding correctly identifies an arithmetic discrepancy. The repair estimate (03_repair_estimate.pdf, page 1) states 'Line items total EUR: 1050.00' and 'Invoice total EUR: 1250.00'. The document explicitly states 'Tax: not applicable; no additional fees are listed.', confirming that the 200.00 EUR difference is unexplained within the provided evidence."
+            },
+            {
+              "index": 2,
+              "verdict": "supported",
+              "reason": "The finding is supported. The claim declaration (01_declaration.pdf, page 1) lists 'Required evidence: repair estimate'. A document identified as a 'repair estimate' (03_repair_estimate.pdf, page 1) has been provided, fulfilling this requirement."
+            },
+            {
+              "index": 3,
+              "verdict": "supported",
+              "reason": "The finding is supported by the evidence. The invoice copy (04_invoice_copy.pdf, page 1) explicitly contains the text 'Copy label: resubmitted attachment, not a second payment request. A repeated reference alone does not establish double billing.', which directly addresses and clarifies the nature of the document and its reference to invoice number SYN-INV-002."
+            }
+          ],
+          "summary": "The report accurately identifies a contradiction in incident dates between the declaration and the incident report. It also correctly flags an arithmetic discrepancy in the repair estimate where the line items total does not reconcile with the invoice total, with no explanation for the difference. The report correctly notes that the required repair estimate is present. Finally, it accurately clarifies that the invoice copy is a resubmitted attachment, not a duplicate payment request, based on explicit labeling within the document itself."
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 1,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 2,
+            "valid": true,
+            "errors": []
+          },
+          {
+            "index": 3,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "evidence": [
+          {
+            "document_id": "244917e83b8e3b46db0e9fee",
+            "name": "04_invoice_copy.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: invoice copy\nInvoice number: SYN-INV-002\nCopy label: resubmitted attachment, not a second payment request.\nA repeated reference alone does not establish double billing.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.2501
+          },
+          {
+            "document_id": "fbb7804554c63a7993eb72c4",
+            "name": "01_declaration.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: claim declaration\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-12\nIncident: water leak at a fictional studio.\nRequired evidence: repair estimate\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1604
+          },
+          {
+            "document_id": "4f8ac7f0955a024a91073025",
+            "name": "03_repair_estimate.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: repair estimate\nInvoice number: SYN-INV-002\nLabour EUR: 450.00\nMaterials EUR: 600.00\nLine items total EUR: 1050.00\nInvoice total EUR: 1250.00\nTax: not applicable; no additional fees are listed.\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.1553
+          },
+          {
+            "document_id": "6b15edc80ea25a7188d28be9",
+            "name": "02_incident_report.pdf",
+            "page": 1,
+            "text": "CaseTrace / synthetic dossier\nFICTIONAL DATA - FOR SOFTWARE DEMONSTRATION ONLY\nDocument type: incident report\nClaim reference: SYN-RIVER-002\nIncident date: 2026-03-14\nObservation: ceiling water damage.\nInspection date: 2026-03-15\nNo real person, insurer, customer, incident or financial transaction. / Page 1\n",
+            "score": 0.0446
+          }
+        ],
+        "rounds": 0,
+        "usage": {
+          "calls": 3,
+          "input_tokens": 6107,
+          "output_tokens": 1453,
+          "total_tokens": 7560,
+          "latency_seconds": 9.129999999999999
+        },
+        "retrieval": "local-lexical",
+        "verification": "LLM review plus exact-quote validation. Human review remains required."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "predicted_kinds": [
+          "arithmetic",
+          "contradiction",
+          "duplicate"
+        ],
+        "true_positive_categories": 3,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 4,
+        "total_findings": 4
+      },
+      "elapsed_seconds": 9.18
+    },
+    {
+      "case": "03_incomplete",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:08:19.535848+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "08336cfcde0114728c4163d5258836672bf81d4c93443b306a95705c3417e28a",
+        "02_incident_report.pdf": "ddeab3027fd764b0c21ebed9d833a8e3f8b3d1ac5eb83971ce82e128ce55e3ad"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [
+        "missing_information"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 1 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [
+            {
+              "title": "Required evidence not supplied",
+              "kind": "missing_information",
+              "severity": "info",
+              "explanation": "The supplied document inventory does not include a document labelled repair estimate.",
+              "citations": [
+                {
+                  "document_id": "8e5cf13b1d1b299dbab109aa",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                }
+              ],
+              "next_step": "Request the repair estimate from the case owner."
+            }
+          ],
+          "unanswered_questions": [
+            "Can the case owner supply the repair estimate?"
+          ]
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "missing_information"
+        ],
+        "predicted_kinds": [
+          "missing_information"
+        ],
+        "true_positive_categories": 1,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 1,
+        "total_findings": 1
+      },
+      "elapsed_seconds": 0.0
+    },
+    {
+      "case": "03_incomplete",
+      "mode": "offline",
+      "started_at": "2026-10-09T19:13:38.393766+00:00",
+      "model": null,
+      "document_hashes": {
+        "01_declaration.pdf": "08336cfcde0114728c4163d5258836672bf81d4c93443b306a95705c3417e28a",
+        "02_incident_report.pdf": "ddeab3027fd764b0c21ebed9d833a8e3f8b3d1ac5eb83971ce82e128ce55e3ad"
+      },
+      "events": [
+        {
+          "role": "system",
+          "kind": "mode",
+          "message": "Offline demo: deterministic template-field checks. No model call.",
+          "data": {}
+        }
+      ],
+      "expected_kinds": [
+        "missing_information"
+      ],
+      "status": "completed",
+      "result": {
+        "report": {
+          "summary": "Offline structured-field checks completed: 1 potential issues. This mode does not answer arbitrary questions or use LLM agents. No issue found is not proof that a case is correct.",
+          "findings": [
+            {
+              "title": "Required evidence not supplied",
+              "kind": "missing_information",
+              "severity": "info",
+              "explanation": "The supplied document inventory does not include a document labelled repair estimate.",
+              "citations": [
+                {
+                  "document_id": "8e5cf13b1d1b299dbab109aa",
+                  "page": 1,
+                  "quote": "Required evidence: repair estimate"
+                }
+              ],
+              "next_step": "Request the repair estimate from the case owner."
+            }
+          ],
+          "unanswered_questions": [
+            "Can the case owner supply the repair estimate?"
+          ]
+        },
+        "citation_checks": [
+          {
+            "index": 0,
+            "valid": true,
+            "errors": []
+          }
+        ],
+        "review": null,
+        "rounds": 0,
+        "usage": {
+          "calls": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "total_tokens": 0
+        },
+        "evidence": [],
+        "retrieval": "not used",
+        "verification": "Deterministic citation checks only; no LLM reviewer."
+      },
+      "metrics": {
+        "expected_kinds": [
+          "missing_information"
+        ],
+        "predicted_kinds": [
+          "missing_information"
+        ],
+        "true_positive_categories": 1,
+        "false_positive_categories": 0,
+        "missed_categories": 0,
+        "valid_quote_findings": 1,
+        "total_findings": 1
+      },
+      "elapsed_seconds": 0.0
+    }
+  ]
+}

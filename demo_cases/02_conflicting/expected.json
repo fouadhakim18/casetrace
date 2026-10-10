@@ -1,0 +1,22 @@
+{
+  "title": "Riverside studio \u00b7 conflicting records",
+  "expected_kinds": [
+    "contradiction",
+    "arithmetic",
+    "duplicate"
+  ],
+  "retrieval_queries": [
+    {
+      "query": "claim declaration incident date",
+      "expected_file": "01_declaration.pdf"
+    },
+    {
+      "query": "inspection date observation incident report",
+      "expected_file": "02_incident_report.pdf"
+    },
+    {
+      "query": "labour materials invoice total",
+      "expected_file": "03_repair_estimate.pdf"
+    }
+  ]
+}

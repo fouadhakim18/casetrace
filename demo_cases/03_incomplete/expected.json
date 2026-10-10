@@ -1,0 +1,16 @@
+{
+  "title": "Hillcrest office \u00b7 missing evidence",
+  "expected_kinds": [
+    "missing_information"
+  ],
+  "retrieval_queries": [
+    {
+      "query": "claim declaration incident date",
+      "expected_file": "01_declaration.pdf"
+    },
+    {
+      "query": "inspection date observation incident report",
+      "expected_file": "02_incident_report.pdf"
+    }
+  ]
+}

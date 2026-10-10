@@ -1,0 +1,12 @@
+services:
+  casetrace:
+    build: .
+    ports:
+      - "127.0.0.1:8768:8768"
+    env_file: .env
+    environment:
+      CASETRACE_DATA_DIR: /app/data
+    volumes:
+      - casetrace-data:/app/data
+volumes:
+  casetrace-data:
